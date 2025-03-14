@@ -1,4 +1,3 @@
-const axios = require("axios");
 const { connectImap } = require("./mail");
 connectImap((email) => {
   console.log(email);
