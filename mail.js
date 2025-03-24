@@ -68,13 +68,13 @@ function startListening() {
 
   // 定时检查连接（可选）
   setInterval(() => {
-    if (!imap.state === "authenticated") {
+    if (imap.state !== "authenticated") {
       console.log("尝试重新连接...");
       connectImap();
     } else {
       console.log("当前连接良好");
     }
-  }, 10000); // 每60秒检查一次
+  }, 60000); // 每1min检查一次
 }
 
 // 获取未读邮件
@@ -142,7 +142,11 @@ function processEmail(email) {
     console.warn("无法标记为已读：缺少messageId");
   }
 }
+const imapHandler = (func) => {
+  func(imap);
+};
 
 module.exports = {
   connectImap,
+  imapHandler,
 };
